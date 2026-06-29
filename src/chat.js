@@ -55,7 +55,7 @@ async function enviarMensajeStream(userId, texto, enviar) {
     });
 
     const respuesta = await client.chat.completions.create({
-        model: "meta/llama-3.1-8b-instruct",
+        model: "deepseek-ai/deepseek-v4-pro",
         messages: conversaciones[userId],
         temperature: 0.5,
         max_tokens: 500,
