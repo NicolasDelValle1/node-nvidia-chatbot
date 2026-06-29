@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.focus();
     // Mensaje de bienvenida inicial
     if (document.getElementById("chat").children.length === 0) {
-        const bienvenida = mostrarMensaje("👋 ¡Hola! Soy tu asistente IA. ¿En qué puedo ayudarte?", "ia");
+        const bienvenida = mostrarMensaje("👋 ¡Hola! Soy tu asistente IA hecho por Nicox. ¿En qué puedo ayudarte?", "ia");
         bienvenida.style.background = 'rgba(118, 185, 237, 0.05)';
         bienvenida.style.border = '1px solid rgba(118, 185, 237, 0.1)';
     }
