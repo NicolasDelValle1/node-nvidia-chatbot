@@ -20,7 +20,7 @@ async function enviarMensaje(userId, texto) {
     });
 
     const respuesta = await client.chat.completions.create({
-        model: "deepseek-ai/deepseek-v3",
+        model: "deepseek-ai/deepseek-v4-flash",
         messages: conversaciones[userId],
         temperature: 0.5,
         max_tokens: 500
@@ -55,7 +55,7 @@ async function enviarMensajeStream(userId, texto, enviar) {
     });
 
     const respuesta = await client.chat.completions.create({
-        model: "deepseek-ai/deepseek-v3",
+        model: "deepseek-ai/deepseek-v4-flash",
         messages: conversaciones[userId],
         temperature: 0.5,
         max_tokens: 500,
