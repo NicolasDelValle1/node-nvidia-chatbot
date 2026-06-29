@@ -9,7 +9,7 @@ async function enviarMensaje(userId, texto) {
         conversaciones[userId] = [
             {
                 role: "system",
-                content: "Eres un asistente de IA. Responde en español. Sé claro y directo."
+                content: "Eres un asistente de IA. Responde en español. se amable y consiso"
             }
         ];
     }
@@ -20,7 +20,7 @@ async function enviarMensaje(userId, texto) {
     });
 
     const respuesta = await client.chat.completions.create({
-        model: "meta/llama-3.1-8b-instruct",
+        model: "deepseek-ai/deepseek-v3",
         messages: conversaciones[userId],
         temperature: 0.5,
         max_tokens: 500
@@ -44,7 +44,7 @@ async function enviarMensajeStream(userId, texto, enviar) {
         conversaciones[userId] = [
             {
                 role: "system",
-                content: "Eres un asistente de IA. Responde en español. Sé claro y directo."
+                content: "Eres un asistente de IA. Responde en español. se amable y consiso"
             }
         ];
     }
@@ -55,7 +55,7 @@ async function enviarMensajeStream(userId, texto, enviar) {
     });
 
     const respuesta = await client.chat.completions.create({
-        model: "deepseek-ai/deepseek-v4-pro",
+        model: "deepseek-ai/deepseek-v3",
         messages: conversaciones[userId],
         temperature: 0.5,
         max_tokens: 500,

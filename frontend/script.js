@@ -194,7 +194,7 @@ function limpiarChat() {
     const chat = document.getElementById("chat");
     chat.innerHTML = '';
     // Mensaje de bienvenida
-    const bienvenida = mostrarMensaje("👋 ¡Hola! Soy tu asistente IA. ¿En qué puedo ayudarte?", "ia");
+    const bienvenida = mostrarMensaje("👋 ¡Hola! Soy tu asistente IA hecho por Nicox. ¿En qué puedo ayudarte?", "ia");
     bienvenida.style.background = 'rgba(118, 185, 237, 0.05)';
     bienvenida.style.border = '1px solid rgba(118, 185, 237, 0.1)';
 }
