@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const {
     enviarMensaje,
@@ -16,10 +17,17 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("API de IA funcionando 🚀");
-});
+app.use(express.static(
+    path.join(__dirname, "../public")
+));
 
+app.get("/", (req,res)=>{
+
+    res.sendFile(
+        path.join(__dirname, "../public/index.html")
+    );
+
+});
 
 // CHAT NORMAL
 app.post("/chat", async (req, res) => {
