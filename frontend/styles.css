@@ -49,6 +49,7 @@ body {
     justify-content: center;
     gap: 12px;
     letter-spacing: 0.3px;
+    flex-shrink: 0;
 }
 
 .header span {
@@ -77,6 +78,7 @@ body {
     flex-direction: column;
     gap: 6px;
     scroll-behavior: smooth;
+    min-height: 0;
 }
 
 /* Scroll personalizado */
@@ -218,6 +220,7 @@ body {
     gap: 12px;
     background: rgba(0, 0, 0, 0.2);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
 }
 
 input {
@@ -231,6 +234,7 @@ input {
     outline: none;
     transition: all 0.3s ease;
     font-family: inherit;
+    min-width: 0;
 }
 
 input::placeholder {
@@ -269,7 +273,7 @@ button:active {
     transform: scale(0.95);
 }
 
-/* Indicador de escritura (opcional) */
+/* Indicador de escritura */
 .typing-indicator {
     display: flex;
     gap: 6px;
@@ -308,45 +312,351 @@ button:active {
     }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
-    
+/* ============================================
+   📱 RESPONSIVE - Todos los dispositivos
+   ============================================ */
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 900px) {
     .chat-container {
-        height: 95vh;
-        border-radius: 16px;
+        width: 95%;
+        height: 85vh;
+        max-height: 85vh;
+        border-radius: 20px;
     }
     
     #chat {
-        padding: 16px;
+        padding: 20px 22px;
     }
     
     .mensaje {
-        max-width: 90%;
+        max-width: 85%;
         font-size: 14px;
         padding: 12px 16px;
     }
+}
+
+/* Móviles grandes (landscape) */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        align-items: stretch;
+    }
+    
+    .chat-container {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        border: none;
+    }
     
     .header {
-        font-size: 16px;
         padding: 16px 20px;
+        font-size: 16px;
+        gap: 10px;
+    }
+    
+    .header .badge {
+        font-size: 10px;
+        padding: 3px 12px;
+    }
+    
+    #chat {
+        padding: 16px 18px;
+        gap: 4px;
+    }
+    
+    .mensaje {
+        max-width: 88%;
+        font-size: 14px;
+        padding: 10px 14px;
+        margin: 3px 0;
+        border-radius: 16px;
+    }
+    
+    .usuario {
+        border-bottom-right-radius: 4px;
+    }
+    
+    .ia {
+        border-bottom-left-radius: 4px;
     }
     
     .input-area {
         padding: 12px 16px 16px 16px;
-        gap: 8px;
+        gap: 10px;
     }
     
     input {
         padding: 12px 16px;
         font-size: 14px;
+        border-radius: 12px;
     }
     
     button {
         width: 48px;
         height: 48px;
-        font-size: 18px;
+        font-size: 20px;
+        border-radius: 12px;
     }
+    
+    .typing-indicator {
+        padding: 10px 16px;
+        max-width: 60px;
+    }
+    
+    .typing-indicator span {
+        width: 7px;
+        height: 7px;
+    }
+}
+
+/* Móviles pequeños (portrait) */
+@media (max-width: 480px) {
+    .header {
+        padding: 14px 16px;
+        font-size: 14px;
+        gap: 8px;
+    }
+    
+    .header .badge {
+        font-size: 9px;
+        padding: 2px 10px;
+    }
+    
+    #chat {
+        padding: 12px 14px;
+        gap: 3px;
+    }
+    
+    .mensaje {
+        max-width: 92%;
+        font-size: 13px;
+        padding: 8px 12px;
+        margin: 2px 0;
+        border-radius: 14px;
+        line-height: 1.5;
+    }
+    
+    .usuario {
+        border-bottom-right-radius: 4px;
+        box-shadow: 0 2px 10px rgba(74, 158, 255, 0.2);
+    }
+    
+    .ia {
+        border-bottom-left-radius: 4px;
+    }
+    
+    /* Código en móviles */
+    .ia pre {
+        padding: 12px 14px;
+        font-size: 12px;
+        border-radius: 8px;
+        margin: 8px 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .ia code {
+        font-size: 12px;
+        padding: 1px 6px;
+    }
+    
+    .ia pre code {
+        font-size: 12px;
+    }
+    
+    .ia ul, .ia ol {
+        padding-left: 20px;
+        margin: 6px 0;
+    }
+    
+    .ia li {
+        margin: 3px 0;
+    }
+    
+    .ia blockquote {
+        padding-left: 12px;
+        margin: 8px 0;
+    }
+    
+    .ia h1, .ia h2, .ia h3 {
+        font-size: 15px;
+        margin: 10px 0 4px 0;
+    }
+    
+    .input-area {
+        padding: 10px 12px 14px 12px;
+        gap: 8px;
+    }
+    
+    input {
+        padding: 10px 14px;
+        font-size: 13px;
+        border-radius: 10px;
+        min-height: 44px;
+    }
+    
+    button {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+        border-radius: 10px;
+        box-shadow: 0 3px 12px rgba(74, 158, 255, 0.25);
+    }
+    
+    button:hover {
+        transform: scale(1.02);
+    }
+    
+    .typing-indicator {
+        padding: 8px 14px;
+        max-width: 50px;
+        border-radius: 14px;
+        border-bottom-left-radius: 4px;
+    }
+    
+    .typing-indicator span {
+        width: 6px;
+        height: 6px;
+        gap: 4px;
+    }
+}
+
+/* Móviles muy pequeños (menos de 360px) */
+@media (max-width: 360px) {
+    .header {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+    
+    #chat {
+        padding: 10px 12px;
+    }
+    
+    .mensaje {
+        font-size: 12px;
+        padding: 7px 10px;
+        max-width: 95%;
+    }
+    
+    .input-area {
+        padding: 8px 10px 12px 10px;
+        gap: 6px;
+    }
+    
+    input {
+        padding: 8px 12px;
+        font-size: 12px;
+        min-height: 38px;
+        border-radius: 8px;
+    }
+    
+    button {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+    
+    .ia pre {
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+    
+    .ia code {
+        font-size: 11px;
+    }
+}
+
+/* Ajustes para landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+    .chat-container {
+        height: 100vh;
+        max-height: 100vh;
+    }
+    
+    .header {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    #chat {
+        padding: 10px 16px;
+    }
+    
+    .mensaje {
+        padding: 6px 12px;
+        font-size: 12px;
+        max-width: 80%;
+    }
+    
+    .input-area {
+        padding: 8px 16px 12px 16px;
+    }
+    
+    input {
+        padding: 8px 14px;
+        font-size: 13px;
+        min-height: 36px;
+    }
+    
+    button {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+    
+    .typing-indicator {
+        padding: 6px 12px;
+        max-width: 45px;
+    }
+    
+    .typing-indicator span {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+/* Ajustes para pantallas grandes (monitores) */
+@media (min-width: 1400px) {
+    .chat-container {
+        width: 900px;
+        height: 800px;
+        max-height: 85vh;
+    }
+    
+    #chat {
+        padding: 30px 36px;
+    }
+    
+    .mensaje {
+        font-size: 16px;
+        padding: 16px 24px;
+    }
+    
+    input {
+        font-size: 16px;
+        padding: 16px 24px;
+    }
+    
+    button {
+        width: 58px;
+        height: 58px;
+        font-size: 24px;
+    }
+}
+
+/* Soporte para dispositivos con notch (iPhone) */
+@supports (padding: max(0px)) {
+    .chat-container {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
+/* Modo oscuro automático (ya es oscuro, pero mantenemos) */
+@media (prefers-color-scheme: light) {
+    /* No cambiamos nada porque el diseño ya es oscuro y premium */
 }
