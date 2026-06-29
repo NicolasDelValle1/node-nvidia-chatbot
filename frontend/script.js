@@ -1,139 +1,121 @@
 const usuario = "nicolas";
 
-
 const input = document.getElementById("mensaje");
 
-
 input.addEventListener("keypress", function(event){
-
     if(event.key === "Enter"){
-
         enviarMensaje();
-
     }
-
 });
-
 
 
 async function enviarMensaje(){
 
-
     const texto = input.value.trim();
-
 
     if(!texto) return;
 
-
-
     mostrarMensaje(texto,"usuario");
 
+    input.value = "";
 
-    input.value="";
+    const mensajeIA = mostrarMensaje("", "ia");
 
-
-
-    const cargando = mostrarMensaje(
-        "Pensando...",
-        "ia"
-    );
-
-
+    let respuestaCompleta = "";
 
     try {
 
+        const respuesta = await fetch("http://localhost:3000/chat-stream", {
 
-        const respuesta = await fetch(
-            "http://localhost:3000/chat",
-            {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-                method:"POST",
+            body: JSON.stringify({
+                userId: usuario,
+                mensaje: texto
+            })
 
-                headers:{
-
-                    "Content-Type":"application/json"
-
-                },
-
-
-                body:JSON.stringify({
-
-                    userId:usuario,
-
-                    mensaje:texto
-
-                })
-
-            }
-        );
+        });
 
 
+        const reader = respuesta.body.getReader();
+        const decoder = new TextDecoder();
 
-        const datos = await respuesta.json();
+        let buffer = "";
 
+        while(true){
 
+            const { done, value } = await reader.read();
 
-        cargando.remove();
+            if(done) break;
 
+            buffer += decoder.decode(value, { stream: true });
 
+            const eventos = buffer.split("\n\n");
 
-        mostrarMensaje(
-            datos.respuesta,
-            "ia"
-        );
+            buffer = eventos.pop();
 
+            eventos.forEach(evento => {
 
+                if(evento.startsWith("data:")){
 
-    }catch(error){
+                    const contenido = evento.replace("data: ", "");
 
+                    if(contenido === "[DONE]") return;
 
-        cargando.remove();
+                    respuestaCompleta += contenido;
 
+// 🔧 normalizador de texto
+let limpio = respuestaCompleta
 
-        mostrarMensaje(
-            "Error conectando con el servidor",
-            "ia"
-        );
+    // arregla espacios antes de puntuación
+    .replace(/\s+\./g, ".")
+    .replace(/\s+,/g, ",")
+    .replace(/\s+:/g, ":")
+    .replace(/\s+\?/g, "?")
+    .replace(/\s+!/g, "!")
 
+    // arregla dobles puntos raros
+    .replace(/\.\./g, ".")
+
+    // arregla saltos inexistentes en listas
+    .replace(/(\d+)\.\s*/g, "\n$1. ")
+
+    // limpia espacios múltiples
+    .replace(/\s+/g, " ");
+
+mensajeIA.innerHTML = marked.parse(limpio);
+
+                }
+
+            });
+
+            const chat = document.getElementById("chat");
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+    } catch(error){
 
         console.error(error);
 
-
+        mensajeIA.textContent = "Error conectando con la IA";
     }
-
-
 }
-
 
 
 function mostrarMensaje(texto,tipo){
 
-    const chat =
-    document.getElementById("chat");
+    const chat = document.getElementById("chat");
 
+    const div = document.createElement("div");
 
-    const div =
-    document.createElement("div");
+    div.classList.add("mensaje", tipo);
 
-
-    div.classList.add(
-        "mensaje",
-        tipo
-    );
-
-
-    div.innerHTML = tipo === "ia"
-        ? marked.parse(texto)
-        : texto;
-
+    div.textContent = texto;
 
     chat.appendChild(div);
 
-
-    chat.scrollTop =
-    chat.scrollHeight;
-
-
     return div;
-
 }
