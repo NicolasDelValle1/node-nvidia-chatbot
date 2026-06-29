@@ -26,7 +26,7 @@ async function enviarMensaje(){
     try {
                                     //http://localhost:3000/chat-stream
                                     
-        const respuesta = await fetch("https://chatbot-08o8.onrender.com/", {
+        const respuesta = await fetch("https://chatbot-08o8.onrender.com/chat-stream", {
 
             method: "POST",
             headers: {
